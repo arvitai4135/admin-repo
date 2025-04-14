@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { registerUser } from '../services/authService';
 import logo from '../../public/logo.png';
-import signup from '../assets/images/signup.jpg';
+import signup from '/assets/images/signup.jpg';
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
