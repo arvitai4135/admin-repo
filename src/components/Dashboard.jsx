@@ -63,7 +63,7 @@ const Dashboard = () => {
     { name: 'Dashboard', path: '', icon: '📊' },
     { name: 'Booking', path: 'booking', icon: '📅' },
     { name: 'Plans', path: 'plans', icon: '🛒' },
-    { name: 'Blog', path: 'editor', icon: '📝' },
+    { name: 'Blog', path: '/editor', icon: '📝' },
     { name: 'Consultancy', path: 'consultency', icon: '👩‍⚕️' },
     // { name: 'About', path: 'about', icon: 'ℹ️' },
     { name: 'Contact', path: 'contact', icon: '📞' },

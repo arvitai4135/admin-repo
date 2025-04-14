@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState, lazy, Suspense, useContext } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -47,15 +46,20 @@ function App() {
                 <Route path="about" element={<About />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="blog" element={<Blog />} />
-                <Route path="editor" element={
-                  <div style={{ padding: "20px", maxWidth: "1200px", margin: "0 auto" }}>
-                    <BlogEditor 
-                      initialContent={blogContent} 
-                      onSave={handleSaveBlog} 
-                    />
-                  </div>
-                } />
               </Route>
+              <Route
+                path="/editor"
+                element={
+                  <ProtectedRoute>
+                    
+                      <BlogEditor 
+                        initialContent={blogContent} 
+                        onSave={handleSaveBlog} 
+                      />
+                    
+                  </ProtectedRoute>
+                }
+              />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
