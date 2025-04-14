@@ -11,7 +11,7 @@ const Signup = lazy(() => import("./components/Signup.jsx"));
 const BlogEditor = lazy(() => import("./components/tiptapEditor/TiptapEditor.jsx"));
 const Home = lazy(() => import("./pages/Home.jsx"));
 const Booking = lazy(() => import("./pages/Booking.jsx"));
-const Ecommerce = lazy(() => import("./pages/Ecommerce.jsx"));
+
 const About = lazy(() => import("./pages/About.jsx"));
 const Contact = lazy(() => import("./pages/Contact.jsx"));
 const Blog = lazy(() => import("./pages/Blog.jsx"));

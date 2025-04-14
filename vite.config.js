@@ -9,8 +9,8 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 3001
   },
-  build: {
-    outDir: '.output'  // <-- this folder won’t conflict with .user.ini
-}
+//   build: {
+//     outDir: '.output'  // <-- this folder won’t conflict with .user.ini
+// }
 })
 
