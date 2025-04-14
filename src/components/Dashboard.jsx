@@ -2,6 +2,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import BlogEditor from '../components/tiptapEditor/TiptapEditor'; // Import the BlogEditor component
 
 const Dashboard = () => {
   const { user, logout } = useContext(AuthContext);
@@ -26,6 +27,9 @@ const Dashboard = () => {
     height: user?.height || '',
   });
 
+  // For the blog editor
+  const [blogContent, setBlogContent] = useState("");
+
   const handleLogout = () => {
     logout();
     navigate('/');
@@ -36,6 +40,11 @@ const Dashboard = () => {
     console.log('Updated user data:', formData);
     setIsEditing(false);
     setIsModalOpen(false);
+  };
+
+  const handleBlogSave = (blogData) => {
+    console.log('Blog saved:', blogData);
+    // Handle blog saving logic
   };
 
   useEffect(() => {
@@ -65,6 +74,18 @@ const Dashboard = () => {
   
   // Check if we're on the editor route
   const isEditorRoute = location.pathname === '/dashboard/editor';
+
+  // Render blog editor content if on the editor route
+  const renderContent = () => {
+    if (isEditorRoute) {
+      return <BlogEditor initialContent={blogContent} onSave={handleBlogSave} />;
+    } else if (!isMainDashboard) {
+      return <Outlet />;
+    }
+    
+    // Otherwise, return nothing as the main dashboard content will be shown
+    return null;
+  };
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen font-sans bg-[#FCF0F8]">
@@ -150,7 +171,7 @@ const Dashboard = () => {
         </div>
 
         <div className="p-4 md:p-6 relative z-10">
-          {/* Header with user info should be shown on all pages */}
+          {/* Header with user info should be shown on all pages except editor */}
           {!isEditorRoute && (
             <div className="flex justify-between items-center mb-6">
               <div>
@@ -161,6 +182,18 @@ const Dashboard = () => {
               </div>
               <button onClick={() => setIsModalOpen(true)} className="focus:outline-none">
                 <div className="w-12 h-12 bg-gradient-to-r from-[#9E0B7F] to-[#D93BB1] rounded-full flex items-center justify-center text-white font-bold shadow-md hover:shadow-lg transition-shadow">
+                  {user?.name?.charAt(0) || 'D'}
+                </div>
+              </button>
+            </div>
+          )}
+
+          {/* In case we're on editor route, add a simpler header */}
+          {isEditorRoute && (
+            <div className="flex justify-between items-center mb-4">
+              <h1 className="text-2xl md:text-3xl font-bold text-[#333333]">Blog Editor</h1>
+              <button onClick={() => setIsModalOpen(true)} className="focus:outline-none">
+                <div className="w-10 h-10 bg-gradient-to-r from-[#9E0B7F] to-[#D93BB1] rounded-full flex items-center justify-center text-white font-bold shadow-md hover:shadow-lg transition-shadow">
                   {user?.name?.charAt(0) || 'D'}
                 </div>
               </button>
@@ -333,12 +366,8 @@ const Dashboard = () => {
             </div>
           )}
 
-          {/* Outlet for nested routes - will show content for other pages */}
-          {!isMainDashboard && (
-            <div className="mt-6">
-              <Outlet />
-            </div>
-          )}
+          {/* Outlet for nested routes or blog editor - will show content for other pages */}
+          {renderContent()}
 
           {isModalOpen && (
             <div

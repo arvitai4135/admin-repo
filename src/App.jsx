@@ -9,7 +9,7 @@ import Plans from "./components/Plans.jsx";
 const Dashboard = lazy(() => import("./components/Dashboard.jsx"));
 const Login = lazy(() => import("./components/Login.jsx"));
 const Signup = lazy(() => import("./components/Signup.jsx"));
-const TiptapEditor = lazy(() => import("./components/tiptapEditor/TiptapEditor.jsx"));
+const BlogEditor = lazy(() => import("./components/tiptapEditor/TiptapEditor.jsx"));
 const Home = lazy(() => import("./pages/Home.jsx"));
 const Booking = lazy(() => import("./pages/Booking.jsx"));
 const Ecommerce = lazy(() => import("./pages/Ecommerce.jsx"));
@@ -25,7 +25,12 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
-  const [content, setContent] = useState("");
+  const [blogContent, setBlogContent] = useState("");
+
+  const handleSaveBlog = (blogData) => {
+    console.log("Blog saved:", blogData);
+    // Here you would typically send the data to your backend
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -43,9 +48,11 @@ function App() {
                 <Route path="contact" element={<Contact />} />
                 <Route path="blog" element={<Blog />} />
                 <Route path="editor" element={
-                  <div style={{ height: "400px", padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-                    <h1>Blog Editor</h1>
-                    <TiptapEditor value={content} onChange={setContent} />
+                  <div style={{ padding: "20px", maxWidth: "1200px", margin: "0 auto" }}>
+                    <BlogEditor 
+                      initialContent={blogContent} 
+                      onSave={handleSaveBlog} 
+                    />
                   </div>
                 } />
               </Route>
