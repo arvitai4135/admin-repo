@@ -92,7 +92,7 @@ const Dashboard = () => {
       {/* Mobile Menu Button */}
       <div className="md:hidden bg-gradient-to-r from-[#9E0B7F] to-[#D93BB1] p-3 flex justify-between items-center">
         <Link to="/" className="text-xl font-bold text-white flex items-center">
-          <img src="/logo.png" alt="NutriDietMitra" className="h-8 mr-1" />
+          <img src="/assets/logo.png" alt="NutriDietMitra" className="h-8 mr-1" />
           NutriCare
         </Link>
         <button
@@ -115,7 +115,7 @@ const Dashboard = () => {
         <div className="hidden md:block p-6 relative z-10">
           <Link to="/" className="text-xl font-bold flex flex-col items-center">
             <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center mb-2">
-              <img src="/logo.png" alt="NutriDietMitra" className="w-12 h-12 object-contain" />
+              <img src="/assets/logo.png" alt="NutriDietMitra" className="w-12 h-12 object-contain" />
             </div>
             <span className="text-white tracking-wider mt-2">NutriCare</span>
           </Link>
