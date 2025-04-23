@@ -2,20 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --nutricare-primary-dark: #9E0B7F;
-    --nutricare-primary-light: #D93BB1;
-    --nutricare-green: #ADD01C;
-    --nutricare-green-dark: #8CA417;
-    --nutricare-bg-light: #FCF0F8;
-    --nutricare-text-dark: #333333;
-    --nutricare-text-gray: #718096;
-  }
+@keyframes slide-down {
+  0% { transform: translateY(-100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 
-@layer components {
-  .font-sans {
-    font-family: Inter, system-ui, Roboto, sans-serif;
-  }
+@keyframes fade-in {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
 }

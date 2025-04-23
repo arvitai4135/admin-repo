@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState, lazy, Suspense, useContext } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -22,6 +23,8 @@ const ProtectedRoute = ({ children }) => {
   const { isLoggedIn } = useContext(AuthContext);
   return isLoggedIn ? children : <Navigate to="/" replace />;
 };
+
+
 
 function App() {
   const [blogContent, setBlogContent] = useState("");
@@ -55,7 +58,9 @@ function App() {
                       <BlogEditor 
                         initialContent={blogContent} 
                         onSave={handleSaveBlog} 
-                      />
+                        />
+                        
+                        
                     
                   </ProtectedRoute>
                 }
