@@ -213,9 +213,9 @@ function NutriDietBlogEditor() {
         const url = URL.createObjectURL(file);
         const img = new window.Image();
         img.src = url;
-        img.onload = () => {
+        img.onload = (() => {
           imageRatios.current[file.name] = img.width / img.height;
-        };
+        });
         imageUrls.current[file.name] = url;
         return {
           id: `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`,
@@ -317,11 +317,9 @@ function NutriDietBlogEditor() {
       return;
     }
 
-    // Update the alignment class
     imageContainer.classList.remove('image-align-left', 'image-align-center', 'image-align-right');
     imageContainer.classList.add(`image-align-${alignment}`);
 
-    // Update the state
     const updatedImages = images.map(img => {
       if (img.id === imageId) {
         return { ...img, alignment };
@@ -472,8 +470,51 @@ function NutriDietBlogEditor() {
           .group:hover .group-hover\\:block {
             display: block;
           }
+          /* Mobile-specific styles for preview */
+          @media (max-width: 768px) {
+            .preview-container {
+              padding: 16px !important;
+              margin: 0 !important;
+            }
+            .preview-title {
+              font-size: 1.75rem !important;
+              line-height: 2.25rem !important;
+              margin-bottom: 1rem !important;
+            }
+            .preview-meta {
+              font-size: 0.9rem !important;
+              flex-direction: column !important;
+              align-items: flex-start !important;
+              gap: 0.5rem !important;
+            }
+            .preview-meta span {
+              margin-bottom: 0.25rem !important;
+            }
+            .preview-description {
+              font-size: 1rem !important;
+              margin-bottom: 1.5rem !important;
+            }
+            .preview-content {
+              padding: 1.5rem !important;
+              font-size: 1rem !important;
+              line-height: 1.75 !important;
+            }
+            .preview-url {
+              font-size: 0.875rem !important;
+              margin-top: 1.5rem !important;
+            }
+            .preview-categories {
+              flex-wrap: wrap !important;
+              gap: 0.5rem !important;
+            }
+            .preview-categories span {
+              font-size: 0.85rem !important;
+              padding: 0.25rem 0.75rem !important;
+            }
+          }
         `}
       </style>
+
       <div className="md:hidden p-4 flex justify-between items-center bg-[#9E0B7F] text-white">
         <div className="flex items-center space-x-2">
           <img src="/assets/logo.png" alt="NutriDietMitra Logo" className="w-8 h-8" />
@@ -488,7 +529,7 @@ function NutriDietBlogEditor() {
           </svg>
         </button>
       </div>
-      
+
       {mobileMenuOpen && (
         <div className="md:hidden mobile-menu-nav bg-[#9E0B7F] text-white px-4 py-2">
           <nav>
@@ -533,13 +574,13 @@ function NutriDietBlogEditor() {
           </nav>
         </div>
       )}
-      
+
       <div className="hidden md:block w-64 flex-shrink-0 sidebar-nav bg-[#9E0B7F] text-white px-4 py-6">
         <div className="flex items-center space-x-2 mb-6">
           <img src="/assets/logo.png" alt="NutriDietMitra Logo" className="w-8 h-8" />
           <h1 className="text-xl font-bold">NutriDiet</h1>
         </div>
-        
+
         <nav>
           <ul className="sidebar-ul list-none p-0 m-0">
             <li className="mb-2">
@@ -581,7 +622,7 @@ function NutriDietBlogEditor() {
           </ul>
         </nav>
       </div>
-      
+
       <div className="flex-grow flex flex-col overflow-auto">
         <header className="bg-white p-4 border-b flex justify-between items-center">
           <div className="flex items-center space-x-2">
@@ -606,7 +647,7 @@ function NutriDietBlogEditor() {
             )}
           </div>
         </header>
-        
+
         <div className="flex flex-col md:flex-row flex-grow overflow-auto">
           {activeSection === "Blog Editor" && (
             <div className="flex flex-col md:flex-row w-full overflow-auto">
@@ -623,7 +664,7 @@ function NutriDietBlogEditor() {
                       placeholder="Enter blog title"
                     />
                   </div>
-                  
+
                   <div className="mb-6">
                     <label htmlFor="description" className="block mb-2 font-medium text-[#333333]">Blog Description</label>
                     <input
@@ -635,7 +676,7 @@ function NutriDietBlogEditor() {
                       placeholder="Enter blog description"
                     />
                   </div>
-                  
+
                   <div className="flex flex-col md:flex-row gap-6 mb-6">
                     <div className="flex-1">
                       <label htmlFor="slug" className="block mb-2 font-medium text-[#333333]">URL Slug</label>
@@ -648,7 +689,7 @@ function NutriDietBlogEditor() {
                         placeholder="enter-slug-here"
                       />
                     </div>
-                    
+
                     <div className="flex-1">
                       <label htmlFor="publishDate" className="block mb-2 font-medium text-[#333333]">Publish Date</label>
                       <div className="relative flex border border-gray-300 rounded-md">
@@ -666,7 +707,7 @@ function NutriDietBlogEditor() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="mb-6">
                     <label className="block mb-2 font-medium text-[#333333]">Categories</label>
                     <div className="flex flex-wrap gap-2 mb-3">
@@ -710,7 +751,7 @@ function NutriDietBlogEditor() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="border border-gray-200 rounded-md overflow-hidden mb-6">
                   <div className="p-2 flex flex-wrap items-center gap-2 bg-gradient-to-r from-[#D93BB1] via-[#9E0B7F] to-[#ADD01C]">
                     <div className="flex gap-1 md:gap-2">
@@ -871,7 +912,7 @@ function NutriDietBlogEditor() {
                       </button>
                     </div>
                   </div>
-                  
+
                   <div
                     className="bg-white p-4 min-h-64"
                     ref={editorRef}
@@ -884,7 +925,7 @@ function NutriDietBlogEditor() {
                     style={{ minHeight: '300px', whiteSpace: 'pre-wrap', wordWrap: 'break-word', paddingLeft: '20px' }}
                   />
                 </div>
-                
+
                 {images.length > 0 && (
                   <div className="mb-6">
                     <div className="flex justify-between items-center mb-4">
@@ -965,18 +1006,48 @@ function NutriDietBlogEditor() {
                   </div>
                 )}
               </div>
-              
-              <div className="w-full md:w-1/2 p-4 md:p-6 overflow-auto bg-[#FCF0F8] border-l border-gray-200">
+
+              <div className="w-full md:w-1/2 p-4 md:p-6 overflow-auto bg-[#FCF0F8] border-l border-gray-200 preview-container">
                 <h2 className="text-xl font-bold mb-4 text-[#9E0B7F]">Blog Preview</h2>
                 <div className="border-t border-gray-200 pt-4">
-                  <h1 className="text-3xl font-bold mb-2 text-[#9E0B7F]">{title || 'Untitled'}</h1>
-                  <div className="flex items-center mb-2 flex-wrap text-[#718096]">
+                  <h1 className="text-3xl font-bold mb-2 text-[#9E0B7F] preview-title">{title || 'Untitled'}</h1>
+                  <div className="flex items-center mb-2 flex-wrap text-[#718096] preview-meta">
                     <Calendar size={16} className="mr-1" />
                     <span>{publishDate || 'Not set'}</span>
                     <span className="mx-2">•</span>
+                    <div className="flex flex-wrap gap-2 preview-categories">
+                      {categories.length > 0 ? (
+                        categories.map(category => (
+                          <span key={category} className="px-2 py-0.5 rounded-full text-sm bg-[#FCF0F8] text-[#9E0B7F]">
+                            {category}
+                          </span>
+                        ))
+                      ) : (
+                        <span>No categories</span>
+                      )}
+                    </div>
+                  </div>
+                  <p className="mb-4 text-[#718096] preview-description">{description || 'No description provided'}</p>
+                  <div className="prose max-w-none bg-white p-4 rounded-md shadow-sm preview-content" dangerouslySetInnerHTML={{ __html: content || '<p>Start writing your blog post...</p>' }} />
+                  <p className="text-sm mt-4 text-[#718096] preview-url">URL: nutridietmitra.com/blog/{slug || 'slug-not-set'}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeSection === "Preview" && (
+            <div className="w-full p-4 md:p-6 overflow-auto bg-[#FCF0F8] preview-container">
+              <h2 className="text-xl font-bold mb-4 text-[#9E0B7F]">Blog Preview</h2>
+              <div className="border-t border-gray-200 pt-4">
+                <h1 className="text-3xl font-bold mb-2 text-[#9E0B7F] preview-title">{title || 'Untitled'}</h1>
+                <div className="flex items-center mb-2 flex-wrap text-[#718096] preview-meta">
+                  <Calendar size={16} className="mr-1" />
+                  <span>{publishDate || 'Not set'}</span>
+                  <span className="mx-2">•</span>
+                  <div className="flex flex-wrap gap-2 preview-categories">
                     {categories.length > 0 ? (
                       categories.map(category => (
-                        <span key={category} className="px-2 py-0.5 rounded-full text-sm mr-2 mb-1 bg-[#FCF0F8] text-[#9E0B7F]">
+                        <span key={category} className="px-2 py-0.5 rounded-full text-sm bg-[#FCF0F8] text-[#9E0B7F]">
                           {category}
                         </span>
                       ))
@@ -984,40 +1055,14 @@ function NutriDietBlogEditor() {
                       <span>No categories</span>
                     )}
                   </div>
-                  <p className="mb-4 text-[#718096]">{description || 'No description provided'}</p>
-                  <div className="prose max-w-none bg-white p-4 rounded-md shadow-sm" dangerouslySetInnerHTML={{ __html: content || '<p>Start writing your blog post...</p>' }} />
-                  <p className="text-sm mt-4 text-[#718096]">URL: nutridietmitra.com/blog/{slug || 'slug-not-set'}</p>
                 </div>
+                <p className="mb-4 text-[#718096] preview-description">{description || 'No description provided'}</p>
+                <div className="prose max-w-none bg-white p-4 rounded-md shadow-sm preview-content" dangerouslySetInnerHTML={{ __html: content || '<p>Start writing your blog post...</p>' }} />
+                <p className="text-sm mt-4 text-[#718096] preview-url">URL: nutridietmitra.com/blog/{slug || 'slug-not-set'}</p>
               </div>
             </div>
           )}
-          
-          {activeSection === "Preview" && (
-            <div className="w-full p-4 md:p-6 overflow-auto bg-[#FCF0F8]">
-              <h2 className="text-xl font-bold mb-4 text-[#9E0B7F]">Blog Preview</h2>
-              <div className="border-t border-gray-200 pt-4">
-                <h1 className="text-3xl font-bold mb-2 text-[#9E0B7F]">{title || 'Untitled'}</h1>
-                <div className="flex items-center mb-2 flex-wrap text-[#718096]">
-                  <Calendar size={16} className="mr-1" />
-                  <span>{publishDate || 'Not set'}</span>
-                  <span className="mx-2">•</span>
-                  {categories.length > 0 ? (
-                    categories.map(category => (
-                      <span key={category} className="px-2 py-0.5 rounded-full text-sm mr-2 mb-1 bg-[#FCF0F8] text-[#9E0B7F]">
-                        {category}
-                      </span>
-                    ))
-                  ) : (
-                    <span>No categories</span>
-                  )}
-                </div>
-                <p className="mb-4 text-[#718096]">{description || 'No description provided'}</p>
-                <div className="prose max-w-none bg-white p-4 rounded-md shadow-sm" dangerouslySetInnerHTML={{ __html: content || '<p>Start writing your blog post...</p>' }} />
-                <p className="text-sm mt-4 text-[#718096]">URL: nutridietmitra.com/blog/{slug || 'slug-not-set'}</p>
-              </div>
-            </div>
-          )}
-          
+
           {activeSection === "Published" && (
             <div className="w-full p-4 md:p-6 overflow-auto bg-[#FCF0F8]">
               <h2 className="text-xl font-bold mb-4 text-[#9E0B7F]">Published Posts</h2>
@@ -1037,7 +1082,7 @@ function NutriDietBlogEditor() {
               </div>
             </div>
           )}
-          
+
           {activeSection === "Drafts" && (
             <div className="w-full p-4 md:p-6 overflow-auto bg-[#FCF0F8]">
               <h2 className="text-xl font-bold mb-4 text-[#9E0B7F]">Drafts</h2>
@@ -1063,4 +1108,4 @@ function NutriDietBlogEditor() {
   );
 }
 
-export default NutriDietBlogEditor;
+export default NutriDietBlogEditor;   
